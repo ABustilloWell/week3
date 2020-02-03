@@ -1,0 +1,77 @@
+body {
+	background-color:rgb(42, 44, 48);
+	color:rgb(206, 212, 224)
+}
+.main-container{
+ 
+	width:60%;
+	margin:auto;
+	margin-top:1%;
+	text-align:center;
+	background-color:rgb(23, 28, 38);
+	padding:5%;
+	border-style:double;
+	border-width:5px;
+	border-color:green;
+}
+
+.links{           
+	width:85%;
+    margin:auto;
+    text-align:center;
+}
+
+a{
+	color:rgb(76, 102, 153);
+	font-size:15px;
+}
+
+hr{
+	border-color:green;
+}
+
+h1{
+	font-family:Imprint Mt Shadow;
+}
+
+
+
+.still , .rotate, .shrink {
+    color: red;
+    display: inline-block;
+    font-size: 60px;
+    padding: 1rem;
+    text-shadow: 1px 1px 2px black; 
+   }
+   
+   .rotate {
+    animation: rotate 1s infinite ease;
+   }
+   
+   .shrink {
+    animation: shrink 1s infinite ease;
+   }
+   
+   @keyframes rotate { 
+    0% { 
+    transform: rotateZ(-30deg);
+    }
+    50% {
+    transform: rotateZ(30deg);
+    }
+    100% {
+    transform: rotateZ(0);
+    }
+   }
+   
+   @keyframes shrink { 
+    0% { 
+    transform: scale(0.8);
+    }
+    50% {
+    transform: scale(1.2);
+    }
+    100% {
+    transform: scale(1);
+    }
+   }
