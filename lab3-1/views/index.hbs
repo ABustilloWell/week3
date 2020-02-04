@@ -14,9 +14,9 @@
         <form name="colorsform" action="/results" method="post">
             Please select a number:
             <br>
-            <select id="gridsize"  class="gridsize_list">
+            <select id="gridsize"  class="gridsize_list" name="selec">
                 {{#each size}}
-                    <option>{{this}}</option>
+                    <option value="{{this}}">{{this}}</option>
                 {{/each}}
             </select>
             <input type="submit">
@@ -24,7 +24,7 @@
         </form>
         
         <br>
-        {{footer}}
+        {{>footer}}
 
     </div>
 </body>
