@@ -11,32 +11,34 @@ hbs.registerHelper('loud',(string)=>{
     return string.toUpperCase()
 })
 
-hbs.registerHelper('coltab',(size)=> {
+hbs.registerHelper('table',(data)=> {
     var str = '<table>';
-    for (var i = 0; i < size.length; i++ ) {
+    for (var i = 0; i < data; i++ ) {
       str += '<tr>';
-      for (var key in size[i]) {
-        str += '<td>' + size[i][key] + '</td>';
+      for (var j = 0; j < data; j++) {
+          var rancol =((1<<24)*Math.random()|0).toString(16);
+        str += `<td style="background-color:#${rancol}">${rancol}<br/><span style="color:#${rancol}">${rancol}</span></td>`;
+        
       };
       str += '</tr>';
     };
     str += '</table>';
-  
+    
     return new hbs.SafeString (str);
   });
 
-  hbs.registerHelper('divs',(errDiv,errorsWord)=>{
-    var strErr ='';
 
-    for(let i=0; i<errDiv; i++){
-        strErr+='<div>';
-        strErr+=errorsWord;
-        strErr+='</div>';
+hbs.registerHelper('error404',(errdiv, errwords)=>{
+    var strerr='';
+    for(let i=0; i<errdiv; i++)
+    {
+        strerr+='<div class="still rotate shrink">';
+        strerr+= errwords;
+        strerr+='</div>';
     }
 
-    return new hbs.handlebars.SafeString(strErr);
+    return new hbs.handlebars.SafeString(strerr);
 })
-
 
 /*function getRanColr(req,res,next){
     /*var letters = '0123456789ABCDEF';
@@ -49,11 +51,11 @@ hbs.registerHelper('coltab',(size)=> {
     next();    
 }*/
 
-function ranCol(req, res, next)
+/*function ranCol(req, res, next)
 {
     req.rancol =((1<<24)*Math.random()|0).toString(16);
     next();
-}
+}*/
 
 function GetSelectedText(){
     var e = document.getElementById("gridsize");
@@ -61,29 +63,29 @@ function GetSelectedText(){
     
 }
 
+function rando(req, res, next)
+{
+    req.errdiv = Math.floor(Math.random()* 50 + 20);
+    next();
+}
+
 app.get('/',(req,res)=>{
     res.render('index',{size:[3,4,5,10,20]}
 )})
 
-app.get('/results',ranCol,(req,res)=>{
-    res.render('index',{colors:req.rancol})
+app.post('/results',(req,res)=>{
+    res.render('results.hbs',{er:req.body.selec,colors:req.rancol})
 })
 
-app.all("/results",(req,res)=>{
+/*app.all("/results",(req,res)=>{
     console.log(req)
     res.render("results.hbs", { color:req.body.size})
-})
-
-
-function rando(req,res,next){
-    req.errDiv = Math.round(Math.random()*50 +20);
-    next();
-}
+})*/
 
 app.get("/*",rando, (req,res)=>{
-    res.render('error', {oher:req.errDiv,
-        errorsWord:"404"});
-})
+    res.render('error', { pd:req.errdiv,
+     errwords:"404"});
+});
 
 app.listen(3000, ()=>{
     console.log('Server is running at port:3000')
